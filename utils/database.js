@@ -1,0 +1,1 @@
+"mongodb+srv://netninja:test1234@cluster0.auhsid1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
