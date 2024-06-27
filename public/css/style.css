@@ -1,0 +1,21 @@
+h1{
+    text-align: center;
+    color: #000;
+    font-size: 40px;
+}
+
+.post-div{
+    margin-top: 50px;
+}
+.post-box{
+    padding: 10px 5px;
+    display: flex;
+    justify-content: space-around;
+}
+.post-box h3{
+    font-size: 25px;
+}
+/** Form Page***/
+form{
+    color: rgb(0, 255, 0);
+}
