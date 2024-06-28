@@ -1,19 +1,15 @@
 const express=require("express");
-const path =require("path");
-const { route } = require("./post");
 const router=express.Router();
-const posts=[];
 
-router.get('/create-post',(req,res)=>{
-    res.render("createPost",{title:"Post-Create Page"})
-})
+const Post= require("../models/Post"); 
+const { renderCreatePage, createPost, renderEditPage, editPost, deletePost } = require("../controllers/posts");
 
-router.post("/",(req,res)=>{
-    const {title,description}=req.body
-    console.log(title,description)
-    posts.push({title,description})
-    res.redirect("/")
+router.get('/create-post',renderCreatePage)
+router.post("/",createPost)
 
-})
+router.get('/edit-post/:postId',renderEditPage)
+router.post("/edit-post",editPost)
 
-module.exports={adminRoutes:router,posts}
+router.post("/delete-post/:postId",deletePost)
+
+module.exports={adminRoutes:router}

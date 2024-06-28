@@ -1,3 +1,7 @@
+body{
+    padding: 0;
+    margin: 0;
+}
 h1{
     text-align: center;
     color: #000;
@@ -6,16 +10,92 @@ h1{
 
 .post-div{
     margin-top: 50px;
+    padding: 0;
+
+}
+.post-titles{
+    font-size: 25px;
+    padding-left: 20px;
 }
 .post-box{
-    padding: 10px 5px;
+    padding: 10px 20px;
+    border: 1px solid #000;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin: 5px 0;
+    border-radius: 10px;
+    align-items: center;
 }
+
 .post-box h3{
     font-size: 25px;
 }
-/** Form Page***/
-form{
-    color: rgb(0, 255, 0);
+.post-box a{
+    padding: 7px 10px;
+    border-radius: 5px;
+}
+
+/**FORM PAGE*/
+.create-form{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #000;
+    padding: 30px 20px;
+}
+.form-box{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    height: 40px;
+    align-items: center;
+}
+.form-box label{
+    font-size: 18px;
+}
+.form-box input{
+    width: 60%;
+    height: 100%;
+}
+.create-form button{
+    padding: 8px 20px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+a{
+    padding: 8px 20px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #000;
+}
+
+/***post details****/
+.post-details {
+    text-align: center;
+    padding: 40px;
+}
+.post-details p{
+    margin: 40px;
+}
+.post-details img{
+    margin: 30px;
+}
+.post-details a{
+    margin: 5px 20px;
+}
+.post-details div{
+    display: flex;
+    justify-content: center;
+}
+.post-details form{
+    display: inline-block;
+}
+.post-details button{
+    margin: 5px 20px;
+    padding: 8px 20px;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    cursor: pointer;
 }
