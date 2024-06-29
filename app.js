@@ -1,6 +1,9 @@
 const express= require("express")
 const path= require("path")
 const bodyParser=require("body-parser")
+const mongoose=require("mongoose")
+const dotenv=require("dotenv").config()
+
 const app=express();
 const {mongodbConnector}= require("./utils/database")
 
@@ -14,14 +17,14 @@ app.use((req,res,next)=>{
     console.log("I am parent middleware")
     next()
 })
-app.use('/admin',(req,res,next)=>{
-    console.log("I am Admin middleware")
-    next()
-})
+
 const postRoutes=require("./routes/post")
 const {adminRoutes}=require("./routes/admin")
 app.use(postRoutes)
 app.use("/admin",adminRoutes)
-mongodbConnector()
 
-app.listen(8000)
+mongoose.connect(process.env.MONGODB_URL).then(()=>{
+    app.listen(8000)
+    console.log("Connted to Mongo Db!")
+}).catch(err=> console.log(err))
+

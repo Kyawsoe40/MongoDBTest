@@ -2,7 +2,7 @@ const Post=require("../models/Post");
 
 //Render Home Page
 exports.renderHomePage= (req,res)=>{
-    Post.getPosts()
+    Post.find()
     .then((posts)=> {
         res.render("home",{title:"HOME PAGE",posts})
     })
@@ -11,7 +11,7 @@ exports.renderHomePage= (req,res)=>{
 //Render Post Details Page
 exports.renderDetailPage=(req,res)=>{
     const postId=req.params.postId
-    Post.getSinglePost(postId)
+    Post.findById(postId)
      .then((post)=> {
 
         res.render("postDetails",{title:"Post Details",post})
@@ -25,16 +25,16 @@ exports.renderCreatePage=(req,res)=>{
 
 exports.createPost=(req,res)=>{
     const {title,description,imgUrl}=req.body
-    const post=new Post(title,description,imgUrl)
-    post.create()
+    Post.create({title,description,imgUrl})
     .then((result)=>console.log(result))
     .catch(err=> console.log(err))
+    
     res.redirect("/")
 }
 //Render Edit Page
 exports.renderEditPage=(req,res)=>{
     const postId=req.params.postId
-    Post.getSinglePost(postId)
+    Post.findById(postId)
      .then((post)=> {
         res.render("editPost",{title:"Edit-post Page",post})
      }).catch(err=>console.log(err))
@@ -42,8 +42,7 @@ exports.renderEditPage=(req,res)=>{
 }
 exports.editPost=(req,res)=>{
     const {title,description,imgUrl,id}=req.body
-    const post=new Post(title,description,imgUrl,id)
-    post.create()
+    Post.updateOne({_id:id},{title,description,imgUrl})
     .then((result)=>console.log(result))
     .catch(err=> console.log(err))
     res.redirect("/")
@@ -52,7 +51,8 @@ exports.editPost=(req,res)=>{
 //Delete Post
 exports.deletePost=(req,res)=>{
     const postId=req.params.postId;
-    Post.deletePost(postId).then(()=>{
+    Post.deleteOne({_id:postId})
+    .then(()=>{
         res.redirect("/")
     }).catch(err=> console.log(err))
 }
