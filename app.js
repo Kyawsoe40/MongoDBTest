@@ -22,12 +22,21 @@ app.use((req,res,next)=>{
     }).catch(err=> console.log(err))
     
 })
-
+app.use("/admin",(req,res,next)=>{
+    const cookie=req.get("Cookie").split("=")[1].trim('') === "true"
+    if(cookie){
+        next()
+    }else{
+        res.redirect("/login")
+    }
+})
 
 const postRoutes=require("./routes/post")
 const {adminRoutes}=require("./routes/admin")
+const authRoutes=require("./routes/auth")
 app.use(postRoutes)
 app.use("/admin",adminRoutes)
+app.use(authRoutes)
 
 mongoose.connect(process.env.MONGODB_URL).then(()=>{
     app.listen(8000)

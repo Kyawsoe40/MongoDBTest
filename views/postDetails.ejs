@@ -8,10 +8,13 @@
 
         <div class="">
             <a href="/">Back to Home Page</a>
-            <a href="/admin/edit-post/<%= post._id%>">Edit Post</a>
-            <form action="/admin/delete-post/<%= post._id%>" method="post">
-                <button onclick="submit">Delete Post</button>
-            </form>
+            <% if(isLogin){ %>
+                <a href="/admin/edit-post/<%= post._id%>">Edit Post</a>
+                <form action="/admin/delete-post/<%= post._id%>" method="post">
+                    <button onclick="submit">Delete Post</button>
+                </form>
+            <% } %>
+            
         </div>
     </div>
 

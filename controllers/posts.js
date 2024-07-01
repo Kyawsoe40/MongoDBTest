@@ -1,23 +1,25 @@
+const { request } = require("express");
 const Post=require("../models/Post");
 
 //Render Home Page
 exports.renderHomePage= (req,res)=>{
+    const cookie=req.get("Cookie").split("=")[1].trim('') === "true"
     Post.find()
     .populate("userId","-password")
     .sort({title:1})
     .then((posts)=> {
-        res.render("home",{title:"HOME PAGE",posts})
-        console.log(posts)
+        res.render("home",{title:"HOME PAGE",posts,isLogin:cookie})
     })
     .catch(err=>console.log(err))
 }
 //Render Post Details Page
 exports.renderDetailPage=(req,res)=>{
     const postId=req.params.postId
+    const cookie=req.get("Cookie").split("=")[1].trim('') === "true"
     Post.findById(postId)
      .then((post)=> {
 
-        res.render("postDetails",{title:"Post Details",post})
+        res.render("postDetails",{title:"Post Details",post,isLogin:cookie})
      }).catch(err=>console.log(err))
     
 }
