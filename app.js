@@ -3,6 +3,8 @@ const path= require("path")
 const bodyParser=require("body-parser")
 const mongoose=require("mongoose")
 const dotenv=require("dotenv").config()
+const session=require("express-session")
+const mongoStore=require("connect-mongodb-session")(session)
 
 const app=express();
 const {mongodbConnector}= require("./utils/database")
@@ -12,7 +14,19 @@ app.set("views","views")
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(express.static(path.join(__dirname,"/public")))
+const store=new mongoStore({
+    uri: process.env.MONGODB_URI,
+    collection: "mySessions"
+})
+app.use(session({
+    secret:process.env.SESSION_KEY,
+    resave:false,
+    saveUninitialized:false,
+    store
+}))
+
 const User=require("./models/User")
+
 
 app.use((req,res,next)=>{
     User.findById("668167fe3c4958dccf81e237")
@@ -23,8 +37,8 @@ app.use((req,res,next)=>{
     
 })
 app.use("/admin",(req,res,next)=>{
-    const cookie=req.get("Cookie").split("=")[1].trim('') === "true"
-    if(cookie){
+    const isLogin=req.session.isLogin? true : false
+    if(isLogin){
         next()
     }else{
         res.redirect("/login")

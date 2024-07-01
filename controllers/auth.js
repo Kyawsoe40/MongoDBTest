@@ -4,11 +4,11 @@ exports.renderLoginPage=(req,res)=>{
 }
 
 exports.Login=(req,res)=>{
-    res.setHeader("Set-cookie","login=true")
+    req.session.isLogin=true
     res.redirect("/")
 }
 
 exports.Logout=(req,res)=>{
-    res.setHeader("Set-cookie","login=false")
+    req.session.destroy()
     res.redirect("/")
 }

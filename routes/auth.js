@@ -6,5 +6,5 @@ router.get("/login",authController.renderLoginPage)
 
 router.post("/login",authController.Login)
 
-router.get("/logout",authController.Logout)
+router.post("/logout",authController.Logout)
 module.exports=router
