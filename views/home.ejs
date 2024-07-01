@@ -6,6 +6,7 @@
     <div class="post-div">
         <div class="post-titles">
             <h3>Title</h3>
+            <h3>Author</h3>
         </div>
         <% if(posts.length<1) { %>
             <h1>There is no post yet!</h1>
@@ -14,7 +15,8 @@
                 %>
                 <div class="post-box">
                     <span><%= post.title %></span>
-                    <a href='post/<%= post._id%>' >View More</a>
+                    <span><%= post.userId.username %></span>
+                    <a href='post/<%= post._id%>' >View More...</a>
                 </div>
         <% 
             }

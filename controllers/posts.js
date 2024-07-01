@@ -3,8 +3,11 @@ const Post=require("../models/Post");
 //Render Home Page
 exports.renderHomePage= (req,res)=>{
     Post.find()
+    .populate("userId","-password")
+    .sort({title:1})
     .then((posts)=> {
         res.render("home",{title:"HOME PAGE",posts})
+        console.log(posts)
     })
     .catch(err=>console.log(err))
 }
@@ -25,7 +28,8 @@ exports.renderCreatePage=(req,res)=>{
 
 exports.createPost=(req,res)=>{
     const {title,description,imgUrl}=req.body
-    Post.create({title,description,imgUrl})
+    const userId=req.user._id
+    Post.create({title,description,imgUrl,userId})
     .then((result)=>console.log(result))
     .catch(err=> console.log(err))
     
