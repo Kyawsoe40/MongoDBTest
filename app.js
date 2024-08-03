@@ -5,6 +5,10 @@ const mongoose=require("mongoose")
 const dotenv=require("dotenv").config()
 const session=require("express-session")
 const mongoStore=require("connect-mongodb-session")(session)
+const csurf=require("tiny-csrf")
+const cookieParser=require("cookie-parser")
+const flash=require("connect-flash")
+
 
 const app=express();
 const {mongodbConnector}= require("./utils/database")
@@ -14,6 +18,8 @@ app.set("views","views")
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(express.static(path.join(__dirname,"/public")))
+app.use(flash())
+app.use(cookieParser("cookie-parser-secret"))
 const store=new mongoStore({
     uri: process.env.MONGODB_URI,
     collection: "mySessions"
@@ -24,42 +30,35 @@ app.use(session({
     saveUninitialized:false,
     store
 }))
+app.use(csurf("123456789iamasecret987654321look"))
 
 const User=require("./models/User")
 
 
 app.use((req,res,next)=>{
-    User.findById("668167fe3c4958dccf81e237")
+    const userId=req.session.userId
+    if(userId=== "undefined"){
+        return next()
+    }
+    User.findById(userId).select("_id email")
     .then((user)=>{
+        console.log(user)
         req.user=user
         next()
-    }).catch(err=> console.log(err))
-    
+    }).catch(err=> console.log(err))  
 })
-app.use("/admin",(req,res,next)=>{
-    const isLogin=req.session.isLogin? true : false
-    if(isLogin){
-        next()
-    }else{
-        res.redirect("/login")
-    }
-})
+
 
 const postRoutes=require("./routes/post")
 const {adminRoutes}=require("./routes/admin")
 const authRoutes=require("./routes/auth")
+const { isLogin } = require("./middlewares/isLogin")
 app.use(postRoutes)
-app.use("/admin",adminRoutes)
+app.use("/admin",isLogin,adminRoutes)
 app.use(authRoutes)
 
 mongoose.connect(process.env.MONGODB_URL).then(()=>{
     app.listen(8000)
     console.log("Connted to Mongo Db!")
-    User.findOne().then((user)=>{
-        if(!user){
-            return User.create({username:"Admin",email:"admin@gmail.com",password:"admin123"})
-        }
-        return user
-    }).then((result)=>console.log(result))
 }).catch(err=> console.log(err))
 

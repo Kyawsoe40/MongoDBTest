@@ -1,0 +1,28 @@
+<%- include('../includes/header') %>
+
+    <h1>Create your new account here!</h1>
+    <p class="error-msg"><%= errorMsg %></p>
+    <form action="/register" method="post" class="create-form" >
+        <input name="_csrf" value="<%= csrfToken %>" type="hidden"/>
+        <div class="form-box">
+            <label for="username" >Enter your username</label>
+            <input type="text" id="username" name="username" required />
+        </div>
+        <Br>
+        <div class="form-box">
+            <label for="email" >Enter your email</label>
+            <input type="text" id="email" name="email" required />
+        </div>
+        <Br>
+        <div class="form-box">
+            <label for="password" >Enter your password</label>
+            <input type="password" id="password" name="password" required />
+        </div>
+        <br>
+        <button>Register</button>
+        <p class="login-register-info">You already have an account? <a href="/login">Login now</a></p>
+    </form>
+
+    <a href="/">Back to Home Page</a>
+    
+<%- include('../includes/footer') %>

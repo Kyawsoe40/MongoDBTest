@@ -103,3 +103,30 @@ a{
     border: none;
     cursor: pointer;
 }
+.login-register-info{
+    text-align: center;
+    padding-top: 0;
+}
+
+.error-msg{
+    text-align: center;
+    color: #f00;
+    font-size: 20px;
+}
+.create-form a{
+    border: none;
+    background: none;
+    color: #000;
+    display: block;
+    margin-top: 10px;   
+    text-decoration: underline;
+    text-align: center;
+}
+.login-register-info a{
+    border: none;
+    display: inline;
+    background-color: #fff;
+    color: #00f;
+    text-decoration: underline;
+    padding: 0;
+}

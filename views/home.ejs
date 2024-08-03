@@ -2,8 +2,10 @@
     <h1>Home Page</h1>
     <div class="post-details">
     <% if(isLogin) {%>
+        
         <a href="/admin/create-post">Go to Admin Panel</a>
         <form action="/logout" method="post">
+            <input name="_csrf" value="<%= csrfToken %>" type="hidden"/>
             <button class="logout-btn">Logout</button>
         </form>
     <% }else{ %>

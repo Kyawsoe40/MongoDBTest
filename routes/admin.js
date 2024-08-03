@@ -1,8 +1,9 @@
 const express=require("express");
 const router=express.Router();
 
-const Post= require("../models/Post"); 
+
 const { renderCreatePage, createPost, renderEditPage, editPost, deletePost } = require("../controllers/posts");
+
 
 router.get('/create-post',renderCreatePage)
 router.post("/",createPost)

@@ -1,7 +1,9 @@
 <%- include('../includes/header') %>
 
     <h1>Login into your account</h1>
+    <p class="error-msg"><%= errorMsg %></p>
     <form action="/login" method="post" class="create-form" >
+        <input name="_csrf" value="<%= csrfToken %>" type="hidden"/>
         <div class="form-box">
             <label for="email" >Enter your email</label>
             <input type="text" id="email" name="email" />
@@ -13,6 +15,10 @@
         </div>
         <br>
         <button>Login</button>
+        <bR>
+        
+        <p class="login-register-info">You didn't have the account yet? <a href="/register">Register Here!</a></p>
+        <a href="reset-password" >Forget Password?</a>
     </form>
 
     <a href="/">Back to Home Page</a>

@@ -1,0 +1,13 @@
+<%- include('../includes/header') %>
+<h1>Reset your Password?</h1>
+<form action="/reset-password" method="post" class="create-form">
+    <input name="_csrf" value="<%= csrfToken %>" type="hidden"/>
+    <p class="error-msg"><%= errorMsg %></p>
+    
+    <div class="form-box">
+        <label for="email" >Enter your email</label>
+        <input type="text" id="email" name="email" />
+    </div>
+    <button>Reset Password</button>
+</form>
+<%- include('../includes/footer') %>

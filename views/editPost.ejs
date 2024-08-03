@@ -2,6 +2,7 @@
 
     <h1>Edit your Post</h1>
     <form action="/admin/edit-post" method="post" class="create-form" >
+        <input name="_csrf" value="<%= csrfToken %>" type="hidden"/>
         <div class="form-box">
             <label for="title" >Title</label>
             <input type="text" id="title" name="title" value="<%= post.title %>"  required/>
